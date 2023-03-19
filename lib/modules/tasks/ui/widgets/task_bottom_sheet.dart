@@ -1,25 +1,21 @@
 import 'package:ads_task/core/constants/string_constants.dart';
 import 'package:ads_task/core/reusable_widgets/ads_text_form_field.dart';
 import 'package:ads_task/core/style/style_constants/color_constants.dart';
-import 'package:ads_task/models/task.dart';
 import 'package:ads_task/modules/tasks/providers/tasks_bottomsheet_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TasksBottomsheet extends StatelessWidget {
-  final Task? task;
-  const TasksBottomsheet({super.key, this.task});
+  const TasksBottomsheet({super.key});
 
   @override
   Widget build(BuildContext context) {
     TasksBottomsheetProvider tasksBottomsheetProvider =
         Provider.of<TasksBottomsheetProvider>(context);
 
-    if (tasksBottomsheetProvider.state == TasksBottomsheetState.INITIALIZING) {}
-
     switch (tasksBottomsheetProvider.state) {
       case TasksBottomsheetState.INITIALIZING:
-        tasksBottomsheetProvider.init(task, context);
+        tasksBottomsheetProvider.init(context);
         break;
       case TasksBottomsheetState.INITIALIZED:
         break;
@@ -64,25 +60,23 @@ class TasksBottomsheet extends StatelessWidget {
                   maxLines: 1,
                   maxCharacters: 1000,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 ADSTextFormField(
-                    label: StringConstants.taskDescriptionFieldLabel,
-                    textEditingController:
-                        tasksBottomsheetProvider.taskDescriptionController,
-                    hintText: StringConstants.taskDescriptionFieldHint,
-                    validator: (input) =>
-                        tasksBottomsheetProvider.validateTaskDescription(),
-                    maxLines: 5,),
+                  label: StringConstants.taskDescriptionFieldLabel,
+                  textEditingController:
+                      tasksBottomsheetProvider.taskDescriptionController,
+                  hintText: StringConstants.taskDescriptionFieldHint,
+                  validator: (input) =>
+                      tasksBottomsheetProvider.validateTaskDescription(),
+                  maxLines: 5,
+                ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      StringConstants.isUrgentTaskLabel,
+                      StringConstants.isUrgentTaskFieldLabel,
                       style: TextStyle(
                           fontSize: 15,
                           color: ColorConstants.kPrimaryAccentColor),
@@ -97,7 +91,7 @@ class TasksBottomsheet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -108,10 +102,16 @@ class TasksBottomsheet extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        onPressed: () => tasksBottomsheetProvider.setTask(task),
-                        child: Text(task == null
-                            ? StringConstants.addButtonLabel
-                            : StringConstants.updateButtonLabel))),
+                        onPressed: () => tasksBottomsheetProvider.setTask(),
+                        child: tasksBottomsheetProvider.state ==
+                                TasksBottomsheetState.LOADING
+                            ? const SizedBox(
+                                width: 50,
+                                child: CircularProgressIndicator(),
+                              )
+                            : Text(tasksBottomsheetProvider.editedTask == null
+                                ? StringConstants.addButtonLabel
+                                : StringConstants.updateButtonLabel))),
               ]),
             ),
           )

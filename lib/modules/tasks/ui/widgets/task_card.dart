@@ -1,6 +1,7 @@
 import 'package:ads_task/core/constants/string_constants.dart';
 import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:ads_task/models/task.dart';
+import 'package:ads_task/modules/tasks/ui/widgets/task_card_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class TaskCard extends StatelessWidget {
@@ -12,17 +13,17 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      children: [
+        Card(
+          elevation: 0,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   task.title,
@@ -31,32 +32,37 @@ class TaskCard extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                task.isCritical
-                    ? Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: const ShapeDecoration(
-                          color: ColorConstants.kErrorBackgroundColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                        ),
-                        child: const Text(StringConstants.urgentTaskLabel),
-                      )
-                    : Container()
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  task.description,
+                  style: const TextStyle(
+                    color: ColorConstants.kPrimaryColor,
+                  ),
+                ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              task.description,
-              style: const TextStyle(
-                color: ColorConstants.kPrimaryColor,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        task.isUrgent
+            ? Container(
+                width: 20,
+                height: 20,
+                padding: const EdgeInsets.all(6),
+                decoration: const ShapeDecoration(
+                  color: ColorConstants.kErrorColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                ),
+              )
+            : Container(),
+        Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: TaskCardPopupMenu(task: task))),
+      ],
     );
   }
 }

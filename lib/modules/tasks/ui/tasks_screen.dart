@@ -82,7 +82,7 @@ class _TasksScreenState extends State<TasksScreen> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           tasksListProvider.getTasks();
         });
-        return buildLoadingScreen();
+        return buildTasks(tasksListProvider);
     }
   }
 

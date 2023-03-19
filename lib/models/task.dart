@@ -1,5 +1,3 @@
-
-
 import 'package:hive_flutter/adapters.dart';
 
 part 'task.g.dart';
@@ -13,10 +11,8 @@ class Task extends HiveObject {
   String description;
 
   @HiveField(2)
-  bool isCritical;
+  bool isUrgent;
 
   Task(
-      {required this.title,
-      required this.description,
-      required this.isCritical});
+      {required this.title, required this.description, required this.isUrgent});
 }

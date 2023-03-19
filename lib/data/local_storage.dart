@@ -14,9 +14,7 @@ class LocalStorage {
           message: "Storage Initialization Successfully",
           isOperationSuccessful: true);
     } catch (e) {
-      return Response(
-          message: e.toString(),
-          isOperationSuccessful: false);
+      return Response(message: e.toString(), isOperationSuccessful: false);
     }
   }
 
@@ -69,11 +67,11 @@ class LocalStorage {
   }
 
   static _addTestData() async {
+    await _tasksBox
+        .add(Task(title: "title1", description: "description", isUrgent: true));
     await _tasksBox.add(
-        Task(title: "title1", description: "description", isCritical: true));
-    await _tasksBox.add(
-        Task(title: "title2", description: "description", isCritical: false));
-    await _tasksBox.add(
-        Task(title: "title3", description: "description", isCritical: true));
+        Task(title: "title2", description: "description", isUrgent: false));
+    await _tasksBox
+        .add(Task(title: "title3", description: "description", isUrgent: true));
   }
 }

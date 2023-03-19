@@ -32,49 +32,41 @@ class TasksBottomsheetProvider extends ChangeNotifier {
   var taskDescriptionController = TextEditingController();
   var taskFormKey = GlobalKey<FormState>();
   var isUrgentTask = false;
-  late Response latestResponse;
+  Task? editedTask;
+  Response? latestResponse;
   bool isBottomSheetOpened = false;
 
-  init(Task? task, BuildContext context) {
+  init(BuildContext context) {
     tasksListProvider = Provider.of<TasksListProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => updateState(TasksBottomsheetState.INITIALIZED));
-    setStateData(task);
   }
 
-  setTask(Task? task) async {
+  setTask() async {
     if (taskFormKey.currentState!.validate()) {
       updateState(TasksBottomsheetState.LOADING);
-      if (task == null) {
+      if (editedTask == null) {
         // Add New Task
         latestResponse = await LocalStorage.addTask(Task(
             title: taskTitleController.text,
             description: taskDescriptionController.text,
-            isCritical: isUrgentTask));
+            isUrgent: isUrgentTask));
       } else {
         // Update Task
-        task.title = taskTitleController.text;
-        task.description = taskDescriptionController.text;
-        task.isCritical = isUrgentTask;
-        latestResponse = await LocalStorage.updateTask(task);
+        editedTask!.title = taskTitleController.text;
+        editedTask!.description = taskDescriptionController.text;
+        editedTask!.isUrgent = isUrgentTask;
+        latestResponse = await LocalStorage.updateTask(editedTask!);
+        if (latestResponse!.isOperationSuccessful) {
+          isBottomSheetOpened = false;
+        }
       }
-      if (latestResponse.isOperationSuccessful) {
+      if (latestResponse!.isOperationSuccessful) {
         tasksListProvider.updateState(TasksListState.RELOADING);
         updateState(TasksBottomsheetState.SUCCEEDED);
       } else {
         updateState(TasksBottomsheetState.FAILED);
       }
-    }
-  }
-
-  editTask(Task task) async {
-    updateState(TasksBottomsheetState.LOADING);
-    latestResponse = await LocalStorage.updateTask(task);
-    if (latestResponse.isOperationSuccessful) {
-      updateState(TasksBottomsheetState.SUCCEEDED);
-      tasksListProvider.updateState(TasksListState.SUCCEEDED);
-    } else {
-      updateState(TasksBottomsheetState.FAILED);
     }
   }
 
@@ -97,9 +89,20 @@ class TasksBottomsheetProvider extends ChangeNotifier {
     return null;
   }
 
-  toggleBottomSheet() {
-    isBottomSheetOpened = !isBottomSheetOpened;
+  open({Task? task}) {
+    _setStateData(task: task);
+    isBottomSheetOpened = true;
     notifyListeners();
+  }
+
+  close() {
+    isBottomSheetOpened = false;
+    _setStateData();
+    updateState(TasksBottomsheetState.INITIALIZED);
+  }
+
+  toggleBottomSheet() {
+    isBottomSheetOpened ? close() : open();
   }
 
   setUrgentTask(bool? value) {
@@ -109,28 +112,30 @@ class TasksBottomsheetProvider extends ChangeNotifier {
     }
   }
 
-  setStateData(Task? task) {
-    if (task != null) {
-      taskTitleController.text = task.title;
-      taskDescriptionController.text = task.description;
-      isUrgentTask = task.isCritical;
+  _setStateData({Task? task}) {
+    editedTask = task;
+    if (editedTask != null) {
+      taskTitleController.text = editedTask!.title;
+      taskDescriptionController.text = editedTask!.description;
+      isUrgentTask = editedTask!.isUrgent;
+    } else {
+      taskTitleController.text = '';
+      taskDescriptionController.text = '';
+      isUrgentTask = false;
+      editedTask = null;
+      if (latestResponse != null) {
+        latestResponse!.message = '';
+      }
     }
   }
 
-  _clearStateData() {
-    taskTitleController.text = '';
-    taskDescriptionController.text = '';
-    isUrgentTask = false;
-    latestResponse.message = '';
-  }
-
   reinitialzeState(BuildContext context) {
-    if (latestResponse.message.isNotEmpty) {
+    if (latestResponse != null && latestResponse!.message.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(latestResponse.message),
+          content: Text(latestResponse!.message),
         ));
-        _clearStateData();
+        _setStateData();
         updateState(TasksBottomsheetState.INITIALIZED);
       });
     }
