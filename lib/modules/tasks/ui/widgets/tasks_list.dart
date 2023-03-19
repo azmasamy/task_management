@@ -22,7 +22,7 @@ class TasksList extends StatelessWidget {
             itemCount: tasks.length,
             itemBuilder: (context, index) => TaskCard(task: tasks[index])),
         SizedBox(
-          height: tasksBottomsheetProvider.isBottomSheetOpened ? 500 : 40,
+          height: tasksBottomsheetProvider.isBottomSheetOpened ? 450 : 100,
         ),
       ],
     );

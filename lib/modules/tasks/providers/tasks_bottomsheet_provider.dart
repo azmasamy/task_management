@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:ads_task/core/constants/string_constants.dart';
 import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:ads_task/data/local_storage.dart';
@@ -7,7 +9,6 @@ import 'package:ads_task/modules/tasks/providers/tasks_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// ignore: constant_identifier_names
 enum TasksBottomsheetState {
   INITIALIZING,
   INITIALIZED,

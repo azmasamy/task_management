@@ -5,7 +5,6 @@ ThemeData appTheme(BuildContext context) {
   return ThemeData.light().copyWith(
     primaryColor: ColorConstants.kPrimaryColor,
     scaffoldBackgroundColor: ColorConstants.kSecondaryColorAccent,
-    // textTheme: textTheme,
     colorScheme: colorScheme,
     bottomSheetTheme:
         const BottomSheetThemeData(backgroundColor: Colors.transparent),

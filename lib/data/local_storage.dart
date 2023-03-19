@@ -64,13 +64,4 @@ class LocalStorage {
       return Response(message: e.toString(), isOperationSuccessful: false);
     }
   }
-
-  static _addTestData() async {
-    await _tasksBox
-        .add(Task(title: "title1", description: "description", isUrgent: true));
-    await _tasksBox.add(
-        Task(title: "title2", description: "description", isUrgent: false));
-    await _tasksBox
-        .add(Task(title: "title3", description: "description", isUrgent: true));
-  }
 }

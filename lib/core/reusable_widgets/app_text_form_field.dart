@@ -1,8 +1,8 @@
 import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
-class ADSTextFormField extends StatelessWidget {
-  const ADSTextFormField(
+class AppTextFormField extends StatelessWidget {
+  const AppTextFormField(
       {super.key,
       this.onChange,
       required this.label,
