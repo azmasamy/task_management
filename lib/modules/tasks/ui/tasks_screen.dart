@@ -82,12 +82,14 @@ class _TasksScreenState extends State<TasksScreen> {
   }
 
   buildTasks(TasksListProvider tasksListProvider) {
-    return Column(
-      children: [
-        TasksScreenHeader(tasksCount: tasksListProvider.tasks.length),
-        TasksList(tasks: tasksListProvider.tasks)
-      ],
-    );
+    return tasksListProvider.tasks.isEmpty
+        ? buildEmptyTasksList()
+        : Column(
+            children: [
+              TasksScreenHeader(tasksCount: tasksListProvider.tasks.length),
+              TasksList(tasks: tasksListProvider.tasks)
+            ],
+          );
   }
 
   buildLoadingScreen() {
@@ -96,6 +98,30 @@ class _TasksScreenState extends State<TasksScreen> {
       child: Center(
         child: CircularProgressIndicator(),
       ),
+    );
+  }
+
+  buildEmptyTasksList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.3,
+        ),
+        SizedBox(
+            width: 100,
+            height: 100,
+            child: Image.asset(
+              "assets/images/empty.png",
+            )),
+        const SizedBox(
+          height: 20,
+        ),
+        const Text(
+          StringConstants.emptyTasksLabel,
+          style: TextStyle(color: ColorConstants.kPrimaryColor),
+        ),
+      ],
     );
   }
 }

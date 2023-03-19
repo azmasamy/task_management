@@ -44,16 +44,16 @@ class TasksListProvider extends ChangeNotifier {
   }
 
   reinitialzeState(BuildContext context) {
-    if (latestResponse.message.isNotEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (latestResponse.message.isNotEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: ColorConstants.kPrimaryColor,
           content: Text(latestResponse.message),
         ));
         latestResponse.message = '';
-        getTasks();
-      });
-    }
+      }
+      getTasks();
+    });
   }
 
   getTasks() {
