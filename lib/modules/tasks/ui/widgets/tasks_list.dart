@@ -1,6 +1,6 @@
-import 'package:ads_task/models/task.dart';
-import 'package:ads_task/modules/tasks/providers/tasks_bottomsheet_provider.dart';
-import 'package:ads_task/modules/tasks/ui/widgets/task_card.dart';
+import 'package:afs_task/models/task.dart';
+import 'package:afs_task/modules/tasks/providers/tasks_bottomsheet_provider.dart';
+import 'package:afs_task/modules/tasks/ui/widgets/task_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

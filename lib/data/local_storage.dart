@@ -1,6 +1,6 @@
-import 'package:ads_task/core/constants/string_constants.dart';
-import 'package:ads_task/models/response.dart';
-import 'package:ads_task/models/task.dart';
+import 'package:afs_task/core/constants/string_constants.dart';
+import 'package:afs_task/models/response.dart';
+import 'package:afs_task/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class LocalStorage {

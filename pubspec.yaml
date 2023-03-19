@@ -1,4 +1,4 @@
-name: ads_task
+name: afs_task
 description: A simple task manager app made as part of the technical interview for ADS.
 publish_to: "none"
 version: 0.1.0

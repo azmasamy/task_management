@@ -1,4 +1,4 @@
-import 'package:ads_task/core/style/style_constants/color_constants.dart';
+import 'package:afs_task/core/style/style_constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 ThemeData appTheme(BuildContext context) {

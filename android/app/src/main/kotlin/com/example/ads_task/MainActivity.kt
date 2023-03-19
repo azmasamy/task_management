@@ -1,4 +1,4 @@
-package com.example.ads_task
+package com.example.afs_task
 
 import io.flutter.embedding.android.FlutterActivity
 

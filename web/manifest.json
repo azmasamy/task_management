@@ -1,6 +1,6 @@
 {
-    "name": "ads_task",
-    "short_name": "ads_task",
+    "name": "afs_task",
+    "short_name": "afs_task",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

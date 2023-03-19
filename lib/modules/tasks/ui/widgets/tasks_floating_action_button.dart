@@ -1,5 +1,5 @@
-import 'package:ads_task/core/style/style_constants/color_constants.dart';
-import 'package:ads_task/modules/tasks/providers/tasks_bottomsheet_provider.dart';
+import 'package:afs_task/core/style/style_constants/color_constants.dart';
+import 'package:afs_task/modules/tasks/providers/tasks_bottomsheet_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
