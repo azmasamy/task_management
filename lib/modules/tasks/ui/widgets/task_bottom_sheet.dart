@@ -15,11 +15,25 @@ class TasksBottomsheet extends StatelessWidget {
     TasksBottomsheetProvider tasksBottomsheetProvider =
         Provider.of<TasksBottomsheetProvider>(context);
 
-    if (tasksBottomsheetProvider.state == TasksBottomsheetState.INITIALIZING) {
-      tasksBottomsheetProvider.init(task);
+    if (tasksBottomsheetProvider.state == TasksBottomsheetState.INITIALIZING) {}
+
+    switch (tasksBottomsheetProvider.state) {
+      case TasksBottomsheetState.INITIALIZING:
+        tasksBottomsheetProvider.init(task, context);
+        break;
+      case TasksBottomsheetState.INITIALIZED:
+        break;
+      case TasksBottomsheetState.LOADING:
+        break;
+      case TasksBottomsheetState.FAILED:
+        tasksBottomsheetProvider.reinitialzeState(context);
+        break;
+      case TasksBottomsheetState.SUCCEEDED:
+        tasksBottomsheetProvider.reinitialzeState(context);
+        break;
     }
 
-    return tasksBottomsheetProvider.isBottomSheetOpended
+    return tasksBottomsheetProvider.isBottomSheetOpened
         ? Container(
             padding: const EdgeInsets.all(
               20,
@@ -47,6 +61,8 @@ class TasksBottomsheet extends StatelessWidget {
                   validator: (input) =>
                       tasksBottomsheetProvider.validateTaskTitle(),
                   autoFocus: true,
+                  maxLines: 1,
+                  maxCharacters: 1000,
                 ),
                 const SizedBox(
                   height: 20,
@@ -58,7 +74,7 @@ class TasksBottomsheet extends StatelessWidget {
                     hintText: StringConstants.taskDescriptionFieldHint,
                     validator: (input) =>
                         tasksBottomsheetProvider.validateTaskDescription(),
-                    maxLines: 5),
+                    maxLines: 5,),
                 const SizedBox(
                   height: 20,
                 ),

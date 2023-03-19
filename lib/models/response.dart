@@ -1,7 +1,7 @@
 class Response {
-  final String message;
-  final bool isOperationSuccessful;
-  final dynamic data;
+  String message;
+  bool isOperationSuccessful;
+  dynamic data;
 
   Response({
     required this.message,

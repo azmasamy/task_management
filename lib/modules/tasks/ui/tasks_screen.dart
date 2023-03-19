@@ -2,7 +2,6 @@ import 'package:ads_task/core/constants/string_constants.dart';
 import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:ads_task/modules/tasks/providers/tasks_list_provider.dart';
 import 'package:ads_task/modules/tasks/ui/widgets/task_bottom_sheet.dart';
-import 'package:ads_task/modules/tasks/ui/widgets/task_card.dart';
 import 'package:ads_task/modules/tasks/ui/widgets/tasks_floating_action_button.dart';
 import 'package:ads_task/modules/tasks/ui/widgets/tasks_list.dart';
 import 'package:ads_task/modules/tasks/ui/widgets/tasks_screen_header.dart';
@@ -72,13 +71,18 @@ class _TasksScreenState extends State<TasksScreen> {
   buildScreenBody(TasksListProvider tasksListProvider) {
     switch (tasksListProvider.state) {
       case TasksListState.LOADING:
-        tasksListProvider.getTasks();
+        tasksListProvider.initialize();
         return buildLoadingScreen();
       case TasksListState.FAILED:
         tasksListProvider.displayErrorMessage(context);
         return buildTasks(tasksListProvider);
       case TasksListState.SUCCEEDED:
         return buildTasks(tasksListProvider);
+      case TasksListState.RELOADING:
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          tasksListProvider.getTasks();
+        });
+        return buildLoadingScreen();
     }
   }
 

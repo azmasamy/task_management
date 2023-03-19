@@ -4,7 +4,7 @@ import 'package:ads_task/models/task.dart';
 import 'package:flutter/material.dart';
 
 // ignore: constant_identifier_names
-enum TasksListState { LOADING, FAILED, SUCCEEDED }
+enum TasksListState { LOADING, RELOADING, FAILED, SUCCEEDED }
 
 class TasksListProvider extends ChangeNotifier {
   //make singleton
@@ -19,11 +19,10 @@ class TasksListProvider extends ChangeNotifier {
   List<Task> tasks = [];
   late Response latestResponse;
 
-  getTasks() async {
-    latestResponse = await LocalStorage.getTasks();
+  initialize() async {
+    latestResponse = await LocalStorage.init();
     if (latestResponse.isOperationSuccessful) {
-      tasks = latestResponse.data;
-      updateState(TasksListState.SUCCEEDED);
+      getTasks();
     } else {
       updateState(TasksListState.FAILED);
     }
@@ -50,5 +49,15 @@ class TasksListProvider extends ChangeNotifier {
         content: Text(latestResponse.message),
       ));
     });
+  }
+
+  getTasks() {
+    latestResponse = LocalStorage.getTasks();
+    if (latestResponse.isOperationSuccessful) {
+      tasks = latestResponse.data;
+      updateState(TasksListState.SUCCEEDED);
+    } else {
+      updateState(TasksListState.FAILED);
+    }
   }
 }

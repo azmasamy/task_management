@@ -5,11 +5,23 @@ import 'package:hive_flutter/hive_flutter.dart';
 class LocalStorage {
   static late final Box _tasksBox;
 
-  static Future<Response> getTasks() async {
+  static init() async {
     try {
       await Hive.initFlutter();
       Hive.registerAdapter(TaskAdapter());
       _tasksBox = await Hive.openBox('tasks');
+      return Response(
+          message: "Storage Initialization Successfully",
+          isOperationSuccessful: true);
+    } catch (e) {
+      return Response(
+          message: e.toString(),
+          isOperationSuccessful: false);
+    }
+  }
+
+  static Response getTasks() {
+    try {
       // await _addTestData();
       return Response(
           message: "Tasks Fetched Successfully",

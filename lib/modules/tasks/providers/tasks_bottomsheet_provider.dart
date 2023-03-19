@@ -33,16 +33,13 @@ class TasksBottomsheetProvider extends ChangeNotifier {
   var taskFormKey = GlobalKey<FormState>();
   var isUrgentTask = false;
   late Response latestResponse;
-  bool isBottomSheetOpended = false;
+  bool isBottomSheetOpened = false;
 
-  init(Task? task) {
-    if (task != null) {
-      taskTitleController.text = task.title;
-      taskDescriptionController.text = task.description;
-      isUrgentTask = task.isCritical;
-    }
+  init(Task? task, BuildContext context) {
+    tasksListProvider = Provider.of<TasksListProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback(
         (_) => updateState(TasksBottomsheetState.INITIALIZED));
+    setStateData(task);
   }
 
   setTask(Task? task) async {
@@ -62,8 +59,8 @@ class TasksBottomsheetProvider extends ChangeNotifier {
         latestResponse = await LocalStorage.updateTask(task);
       }
       if (latestResponse.isOperationSuccessful) {
+        tasksListProvider.updateState(TasksListState.RELOADING);
         updateState(TasksBottomsheetState.SUCCEEDED);
-        tasksListProvider.updateState(TasksListState.SUCCEEDED);
       } else {
         updateState(TasksBottomsheetState.FAILED);
       }
@@ -101,7 +98,7 @@ class TasksBottomsheetProvider extends ChangeNotifier {
   }
 
   toggleBottomSheet() {
-    isBottomSheetOpended = !isBottomSheetOpended;
+    isBottomSheetOpened = !isBottomSheetOpened;
     notifyListeners();
   }
 
@@ -109,6 +106,33 @@ class TasksBottomsheetProvider extends ChangeNotifier {
     if (value != null) {
       isUrgentTask = value;
       notifyListeners();
+    }
+  }
+
+  setStateData(Task? task) {
+    if (task != null) {
+      taskTitleController.text = task.title;
+      taskDescriptionController.text = task.description;
+      isUrgentTask = task.isCritical;
+    }
+  }
+
+  _clearStateData() {
+    taskTitleController.text = '';
+    taskDescriptionController.text = '';
+    isUrgentTask = false;
+    latestResponse.message = '';
+  }
+
+  reinitialzeState(BuildContext context) {
+    if (latestResponse.message.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(latestResponse.message),
+        ));
+        _clearStateData();
+        updateState(TasksBottomsheetState.INITIALIZED);
+      });
     }
   }
 }

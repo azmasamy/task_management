@@ -23,7 +23,7 @@ class TasksFloatingActionButton extends StatelessWidget {
           foregroundColor: ColorConstants.kPrimaryAccentColor,
           onPressed: () => tasksBottomsheetProvider.toggleBottomSheet(),
           child: Icon(
-            tasksBottomsheetProvider.isBottomSheetOpended
+            tasksBottomsheetProvider.isBottomSheetOpened
                 ? Icons.close_rounded
                 : Icons.add_rounded,
             color: Colors.white,
