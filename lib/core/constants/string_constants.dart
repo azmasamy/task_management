@@ -18,4 +18,8 @@ class StringConstants {
   static const String urgentTaskLabel = 'Urgent';
   static const String editTaskMenuItemLabel = 'Edit';
   static const String deleteTaskMenuItemLabel = 'Delete';
+  static const String taskAddedSuccufully = 'Task added successfully';
+  static const String taskEditedSuccufully = 'Task edited successfully';
+  static const String taskDeletedSuccufully = 'Task deleted successfully';
+  static const String emptyTasksLabel = 'Yay! you have no tasks';
 }

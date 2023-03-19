@@ -1,10 +1,11 @@
+import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:ads_task/data/local_storage.dart';
 import 'package:ads_task/models/response.dart';
 import 'package:ads_task/models/task.dart';
 import 'package:flutter/material.dart';
 
 // ignore: constant_identifier_names
-enum TasksListState { LOADING, RELOADING, FAILED, SUCCEEDED }
+enum TasksListState { LOADING, RELOADING, LOADED }
 
 class TasksListProvider extends ChangeNotifier {
   //make singleton
@@ -24,17 +25,16 @@ class TasksListProvider extends ChangeNotifier {
     if (latestResponse.isOperationSuccessful) {
       getTasks();
     } else {
-      updateState(TasksListState.FAILED);
+      updateState(TasksListState.LOADED);
     }
   }
 
   deleteTask(Task task) async {
     latestResponse = await LocalStorage.deleteTask(task);
     if (latestResponse.isOperationSuccessful) {
-      updateState(TasksListState.SUCCEEDED);
-      tasks = latestResponse.data;
+      updateState(TasksListState.RELOADING);
     } else {
-      updateState(TasksListState.FAILED);
+      updateState(TasksListState.LOADED);
     }
   }
 
@@ -43,21 +43,26 @@ class TasksListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  displayErrorMessage(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(latestResponse.message),
-      ));
-    });
+  reinitialzeState(BuildContext context) {
+    if (latestResponse.message.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: ColorConstants.kPrimaryColor,
+          content: Text(latestResponse.message),
+        ));
+        latestResponse.message = '';
+        getTasks();
+      });
+    }
   }
 
   getTasks() {
     latestResponse = LocalStorage.getTasks();
     if (latestResponse.isOperationSuccessful) {
       tasks = latestResponse.data;
-      updateState(TasksListState.SUCCEEDED);
+      updateState(TasksListState.LOADED);
     } else {
-      updateState(TasksListState.FAILED);
+      updateState(TasksListState.LOADED);
     }
   }
 }

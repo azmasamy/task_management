@@ -73,15 +73,10 @@ class _TasksScreenState extends State<TasksScreen> {
       case TasksListState.LOADING:
         tasksListProvider.initialize();
         return buildLoadingScreen();
-      case TasksListState.FAILED:
-        tasksListProvider.displayErrorMessage(context);
-        return buildTasks(tasksListProvider);
-      case TasksListState.SUCCEEDED:
+      case TasksListState.LOADED:
         return buildTasks(tasksListProvider);
       case TasksListState.RELOADING:
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          tasksListProvider.getTasks();
-        });
+        tasksListProvider.reinitialzeState(context);
         return buildTasks(tasksListProvider);
     }
   }

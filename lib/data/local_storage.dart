@@ -1,3 +1,4 @@
+import 'package:ads_task/core/constants/string_constants.dart';
 import 'package:ads_task/models/response.dart';
 import 'package:ads_task/models/task.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,9 +11,7 @@ class LocalStorage {
       await Hive.initFlutter();
       Hive.registerAdapter(TaskAdapter());
       _tasksBox = await Hive.openBox('tasks');
-      return Response(
-          message: "Storage Initialization Successfully",
-          isOperationSuccessful: true);
+      return Response(message: "", isOperationSuccessful: true);
     } catch (e) {
       return Response(message: e.toString(), isOperationSuccessful: false);
     }
@@ -22,7 +21,7 @@ class LocalStorage {
     try {
       // await _addTestData();
       return Response(
-          message: "Tasks Fetched Successfully",
+          message: "",
           isOperationSuccessful: true,
           data: _tasksBox.values.map((e) => e as Task).toList());
     } catch (e) {
@@ -34,9 +33,9 @@ class LocalStorage {
     try {
       await _tasksBox.add(task);
       return Response(
-          message: "Tasks Added Successfully",
-          isOperationSuccessful: true,
-          data: _tasksBox.get('tasks'));
+        message: StringConstants.taskAddedSuccufully,
+        isOperationSuccessful: true,
+      );
     } catch (e) {
       return Response(message: e.toString(), isOperationSuccessful: false);
     }
@@ -46,9 +45,9 @@ class LocalStorage {
     try {
       await task.save();
       return Response(
-          message: "Tasks Updated Successfully",
-          isOperationSuccessful: true,
-          data: _tasksBox.get('tasks'));
+        message: StringConstants.taskEditedSuccufully,
+        isOperationSuccessful: true,
+      );
     } catch (e) {
       return Response(message: e.toString(), isOperationSuccessful: false);
     }
@@ -56,11 +55,11 @@ class LocalStorage {
 
   static Future<Response> deleteTask(Task task) async {
     try {
-      await _tasksBox.delete(task);
+      await task.delete();
       return Response(
-          message: "Tasks Deleted Successfully",
-          isOperationSuccessful: true,
-          data: _tasksBox.get('tasks'));
+        message: StringConstants.taskDeletedSuccufully,
+        isOperationSuccessful: true,
+      );
     } catch (e) {
       return Response(message: e.toString(), isOperationSuccessful: false);
     }
