@@ -15,7 +15,13 @@ A Flutter task management mobile application made as an interview task for Advan
 
 -CRUD operation for tasks.
 
+# Screenshots
+
+![image](https://user-images.githubusercontent.com/34034904/226210453-1f2949a5-1fbb-4a0d-9fac-f8550725b17d.png)
+![image](https://user-images.githubusercontent.com/34034904/226210421-7f73de72-b4cc-45dc-b89c-369d7e09f446.png)
+![image](https://user-images.githubusercontent.com/34034904/226210464-3118f7de-ffe7-476c-bc2d-d4f5a80c8279.png)
 
 # Additional Notes
 
 I hope you find it useful.
+
