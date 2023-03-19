@@ -15,7 +15,10 @@ class TaskCardPopupMenu extends StatefulWidget {
 }
 
 class _TaskCardPopupMenuState extends State<TaskCardPopupMenu> {
-  List<String> list = <String>['Edit', 'Delete'];
+  List<String> list = <String>[
+    StringConstants.editTaskMenuItemLabel,
+    StringConstants.deleteTaskMenuItemLabel,
+  ];
 
   @override
   void initState() {

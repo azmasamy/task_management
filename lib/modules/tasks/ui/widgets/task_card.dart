@@ -1,4 +1,3 @@
-import 'package:ads_task/core/constants/string_constants.dart';
 import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:ads_task/models/task.dart';
 import 'package:ads_task/modules/tasks/ui/widgets/task_card_popup_menu.dart';
@@ -25,12 +24,23 @@ class TaskCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  task.title,
-                  style: const TextStyle(
-                      color: ColorConstants.kPrimaryColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        overflow: TextOverflow.visible,
+                        task.title,
+                        style: const TextStyle(
+                            color: ColorConstants.kPrimaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    )
+                  ],
                 ),
                 const SizedBox(
                   height: 10,

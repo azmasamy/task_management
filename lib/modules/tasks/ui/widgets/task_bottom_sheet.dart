@@ -58,7 +58,9 @@ class TasksBottomsheet extends StatelessWidget {
                       tasksBottomsheetProvider.validateTaskTitle(),
                   autoFocus: true,
                   maxLines: 1,
-                  maxCharacters: 1000,
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 ADSTextFormField(
                   label: StringConstants.taskDescriptionFieldLabel,

@@ -1,4 +1,5 @@
 import 'package:ads_task/core/constants/string_constants.dart';
+import 'package:ads_task/core/style/style_constants/color_constants.dart';
 import 'package:ads_task/data/local_storage.dart';
 import 'package:ads_task/models/response.dart';
 import 'package:ads_task/models/task.dart';
@@ -133,6 +134,7 @@ class TasksBottomsheetProvider extends ChangeNotifier {
     if (latestResponse != null && latestResponse!.message.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: ColorConstants.kPrimaryColor,
           content: Text(latestResponse!.message),
         ));
         _setStateData();
