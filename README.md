@@ -4,7 +4,7 @@ A Flutter task management mobile application made as an interview task for Advan
 
 # Installation & Build
 
-1- Follow the installation docs to install Flutter on your machine <https://docs.flutter.dev/get-started/install>
+1- Follow the [installation docs](https://docs.flutter.dev/get-started/install) to install Flutter on your machine
 
 2- Run `Flutter pub get` to get dependencies
 
@@ -13,7 +13,11 @@ A Flutter task management mobile application made as an interview task for Advan
 
 # Features
 
--CRUD operation for tasks.
+- CRUD operation for tasks.
+
+# APK installation
+
+- Download apk from [here](https://drive.google.com/drive/u/0/folders/1UYPWepnZgFYed6jQWtTWwqZVROr8tSmM)
 
 # Screenshots
 <span>
