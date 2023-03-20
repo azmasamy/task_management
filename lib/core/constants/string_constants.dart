@@ -2,7 +2,7 @@ class StringConstants {
   static const String appTitle = 'Task Manager';
   static const String welcomeTitle = 'Welcome!';
   static const String greatDay =
-      'I wish your the best overcomming your challenges.';
+      'I wish you the best overcomming your challenges';
   static const String taskTitleFieldLabel = 'Title';
   static const String isUrgentTaskFieldLabel = 'Is this an urgent task?';
   static const String taskTitleFieldHint = 'Type task title';
