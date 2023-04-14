@@ -1,6 +1,6 @@
 # afs_task
 
-A Flutter task management mobile application made as an interview task for Advanced Field Solution.
+A Flutter task management mobile application.
 
 # Installation & Build
 
@@ -25,7 +25,15 @@ A Flutter task management mobile application made as an interview task for Advan
 <img src="https://user-images.githubusercontent.com/34034904/226210421-7f73de72-b4cc-45dc-b89c-369d7e09f446.png" width="250">
 <img src="https://user-images.githubusercontent.com/34034904/226210956-0ed90c04-bd23-4344-aef8-70e1b6c68ef6.png" width="250">
 </span>
-  
+
+# Packages Used
+
+provider: ^6.0.5
+hive: ^2.2.3
+hive_flutter: ^1.1.0
+flutter_native_splash: ^2.2.19
+flutter_launcher_icons: ^0.12.0
+
 # Additional Notes
 
 I hope you find it useful.
