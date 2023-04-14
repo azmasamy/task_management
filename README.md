@@ -1,4 +1,4 @@
-# afs_task
+# Task Management
 
 A Flutter task management mobile application.
 
