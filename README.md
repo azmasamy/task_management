@@ -17,7 +17,7 @@ A Flutter task management mobile application.
 
 # APK installation
 
-- Download apk from [here](https://drive.google.com/drive/u/0/folders/1UYPWepnZgFYed6jQWtTWwqZVROr8tSmM)
+- [Download app from play store](https://play.google.com/store/apps/details?id=com.hamzatahir.task_manager)
 
 # Screenshots
 <span>
